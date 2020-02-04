@@ -1,0 +1,66 @@
+.email-field,
+.text-field,
+.password-field {
+  box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  border-radius: 3px;
+  padding: 7px;
+  outline: none;
+  margin-top: 5px;
+}
+
+@media (min-width: 600px) {
+  .email-field,
+  .text-field,
+  .password-field {
+    width: 100%;
+  }
+}
+
+label > span {
+  width: 100px;
+  font-weight: 600;
+  float: left;
+  padding-right: 5px;
+}
+
+@media (min-width: 600px) {
+  label > span {
+    margin-top: 20px;
+  }
+}
+
+.error-message {
+  font-size: 11px;
+  color: indianred;
+}
+
+.form-submit {
+  border: none;
+  padding: 8px 15px 8px 15px;
+  background: #ff8500;
+  color: #fff;
+  box-shadow: 1px 1px 4px #dadada;
+  border-radius: 3px;
+  width: 100%;
+  height: 40%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 600px) {
+  .form-group-item {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

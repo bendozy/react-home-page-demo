@@ -1,0 +1,17 @@
+.withImageHeader-image {
+  background-image: url('../assets/jetcake-bridge.jpeg') !important;
+  background-position: center center;
+  background-size: cover;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.withImageHeader > .inner {
+  min-height: 400px;
+}
+
+@media (min-width: 600px) {
+  .withImageHeader > .inner {
+    min-height: 700px;
+  }
+}

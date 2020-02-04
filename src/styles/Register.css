@@ -1,0 +1,9 @@
+@media (min-width: 600px) {
+  .Register {
+    margin-top: 20px;
+  }
+}
+
+.Register-title {
+  text-align: center;
+}

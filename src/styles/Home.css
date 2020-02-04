@@ -1,0 +1,12 @@
+.Home-hero {
+  background-image: url('../assets/jetcake-bridge.jpeg') !important;
+  background-position: center center;
+  background-size: cover;
+  height: 200px;
+}
+
+@media (min-width: 600px) {
+  .Home-hero {
+    height: 400px;
+  }
+}
