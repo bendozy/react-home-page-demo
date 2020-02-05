@@ -25,4 +25,4 @@ git clone https://github.com/bendozy/react-home-page-demo.git
 
 ## Demo
 
-- [home](http://localhost:3000)
+- [https://jetcake-demo-e6a3d.firebaseapp.com](https://jetcake-demo-e6a3d.firebaseapp.com)
