@@ -18,3 +18,10 @@
     width: 500px;
   }
 }
+
+.Login > a {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: #ff8500;
+}

@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import { firestore } from '../firebase/firebase';
 import {
   CREATE_PROFILE_REQUEST,
@@ -67,18 +68,23 @@ export const createProfile = data => dispatch => {
     });
 };
 
-export const updateProfile = ({ id, ...profile }) => dispatch => {
+export const updateProfile = ({
+  profile: { id, ...profile },
+  history,
+}) => dispatch => {
   dispatch(updateProfileRequest());
-  console.log('here', id);
 
   return firestore
     .collection('profiles')
     .doc(id)
     .set(profile)
     .then(() => {
+      toastr.success('Profile Updated');
       dispatch(updateProfileSuccess({ id, ...profile }));
+      history.push('/profile');
     })
     .catch(error => {
+      toastr.error(error.message);
       dispatch(updateProfileError(error));
     });
 };

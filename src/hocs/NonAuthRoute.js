@@ -5,15 +5,7 @@ import { connect } from 'react-redux';
 import PageLayout from '../layouts/PageLayout';
 
 /* eslint-disable react/jsx-props-no-spreading */
-const NonAuthRoute = ({ component: Component, isLoading, user, ...rest }) => {
-  if (isLoading) {
-    return (
-      <PageLayout>
-        <div>Loading...</div>
-      </PageLayout>
-    );
-  }
-
+const NonAuthRoute = ({ component: Component, user, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -41,12 +33,10 @@ NonAuthRoute.propTypes = {
     uid: PropTypes.string,
     email: PropTypes.string,
   }),
-  isLoading: PropTypes.bool.isRequired,
 };
 
-export const mapStateToProps = ({ auth: { user, isLoading } }) => ({
+export const mapStateToProps = ({ auth: { user } }) => ({
   user,
-  isLoading,
 });
 
 export default connect(mapStateToProps)(NonAuthRoute);

@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getProfile } from '../actions/profile';
-import Password from '../components/Password';
+import { resetPassword } from '../actions/auth';
 
 import '../styles/Profile.css';
 
 const Profile = ({ user, profile, isLoading, dispatch, history: { push } }) => {
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
-
   useEffect(() => {
     if (!profile) {
       dispatch(getProfile());
@@ -20,13 +18,12 @@ const Profile = ({ user, profile, isLoading, dispatch, history: { push } }) => {
     return <div>Loading...</div>;
   }
 
-  const closeForm = () => {
-    setShowPasswordForm(false);
-  };
-
   return (
     <div className="Profile">
       <h2 className="Profile-title">My Account</h2>
+      {profile.profilePhotoURL && (
+        <img src={profile.profilePhotoURL} alt="profile" />
+      )}
       <div className="button-group">
         <button
           type="button"
@@ -39,14 +36,12 @@ const Profile = ({ user, profile, isLoading, dispatch, history: { push } }) => {
         <button
           type="button"
           onClick={() => {
-            setShowPasswordForm(true);
+            dispatch(resetPassword());
           }}
-          disabled={showPasswordForm}
         >
-          Change Password
+          Send Password Reset
         </button>
       </div>
-      {showPasswordForm && <Password closeForm={closeForm} />}
       <div className="row">
         <div className="Profile-label">Email:</div>
         <div className="Profile-data">{user.email}</div>
@@ -86,6 +81,7 @@ Profile.propTypes = {
     address: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     dob: PropTypes.string.isRequired,
+    profilePhotoURL: PropTypes.string,
   }),
   isLoading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,

@@ -1,0 +1,25 @@
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.Content-row {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  margin: 20px 0;
+}
+
+@media (min-width: 600px) {
+  .Content-row {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.col {
+  margin: 0 10px;
+}

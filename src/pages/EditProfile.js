@@ -1,34 +1,24 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as moment from 'moment';
-import toastr from 'toastr';
 import { connect } from 'react-redux';
 import { getProfile, updateProfile } from '../actions/profile';
 import ProfileForm from '../components/ProfileForm';
+import { storage } from '../firebase/firebase';
 
 import '../styles/EditProfile.css';
 
-const EditProfile = ({
-  user,
-  profile,
-  isLoading,
-  dispatch,
-  history: { push },
-}) => {
+const EditProfile = ({ user, profile, isLoading, dispatch, history }) => {
   useEffect(() => {
     if (!profile) {
       dispatch(getProfile());
     }
-    dispatch(getProfile());
-  }, [profile, dispatch]);
+  }, [dispatch, profile]);
 
-  const handleSubmit = ({
-    email,
-    password,
-    dob,
-    address,
-    securityQuestionsAnswers,
-  }) => {
+  const handleSubmit = (
+    { email, password, dob, address, securityQuestionsAnswers, profilePhoto },
+    { setSubmitting },
+  ) => {
     const data = {
       id: profile.id,
       email,
@@ -44,10 +34,22 @@ const EditProfile = ({
       ),
     };
 
-    dispatch(updateProfile(data)).then(() => {
-      toastr.success('Profile Updated');
-      push('/profile');
-    });
+    if (profilePhoto) {
+      const storageRef = storage.ref(`profilePhotos/${profile.id}`);
+
+      storageRef.put(profilePhoto).then(() => {
+        storageRef.getDownloadURL().then(profilePhotoURL => {
+          data.profilePhotoURL = profilePhotoURL;
+          dispatch(
+            updateProfile({ profile: { ...profile, ...data }, history }),
+          );
+        });
+      });
+    } else {
+      dispatch(updateProfile({ profile: { ...profile, ...data }, history }));
+    }
+
+    setSubmitting(false);
   };
 
   if (isLoading && !profile) {
@@ -87,7 +89,6 @@ EditProfile.propTypes = {
     id: PropTypes.string.isRequired,
     securityQuestionsAnswers: PropTypes.arrayOf(PropTypes.object).isRequired,
     address: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
   }),
   isLoading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,

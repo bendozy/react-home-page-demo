@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import ForgotPassword from '../pages/ForgotPassword';
 import Register from '../pages/Register';
 import NotFound from '../pages/NotFound';
 import Profile from '../pages/Profile';
@@ -19,6 +20,11 @@ const App = () => (
         <PublicRoute exact path="/" component={Home} />
         <NonAuthRoute exact path="/login" component={Login} />
         <NonAuthRoute exact path="/register" component={Register} />
+        <NonAuthRoute
+          exact
+          path="/forgot-password"
+          component={ForgotPassword}
+        />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/profile-edit" component={EditProfile} />
         <PublicRoute component={NotFound} />

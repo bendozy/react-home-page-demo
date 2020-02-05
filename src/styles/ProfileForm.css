@@ -34,3 +34,26 @@
 .dob > div {
   border: none;
 }
+
+.image-upload {
+  display: flex;
+  justify-content: center;
+  border: 2px dotted;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.image-upload > div {
+  outline: none;
+}
+
+.image-upload > div > p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.image-upload > div > img {
+  max-width: 200px;
+  margin: 0 auto;
+  display: flex;
+}

@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import { auth } from '../firebase/firebase';
 import { createProfile } from './profile';
 import {
@@ -16,6 +17,9 @@ import {
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
   CREATE_USER_ERROR,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_ERROR,
 } from '../constants';
 
 const getUser = ({ uid, email }) => ({ uid, email });
@@ -90,16 +94,33 @@ const createUserError = error => ({
   error,
 });
 
-export const loginUser = (email, password) => dispatch => {
+const resetPasswordRequest = () => ({
+  type: RESET_PASSWORD_REQUEST,
+});
+
+const resetPasswordSuccess = () => ({
+  type: RESET_PASSWORD_SUCCESS,
+});
+
+const resetPasswordError = error => ({
+  type: RESET_PASSWORD_ERROR,
+  error,
+});
+
+export const loginUser = ({ email, password, history }) => dispatch => {
   dispatch(loginUserRequest());
 
-  return auth
-    .signInWithEmailAndPassword(email, password)
+  const req = auth.signInWithEmailAndPassword(email, password);
+
+  return req
     .then(user => {
       dispatch(loginUserSuccess(getUser(user)));
+      toastr.success('Login Success');
+      history.push('/');
     })
     .catch(error => {
       dispatch(loginUserError(error));
+      toastr.error(error.message);
     });
 };
 
@@ -164,5 +185,34 @@ export const createUser = ({ email, password, ...profile }) => dispatch => {
     })
     .catch(error => {
       dispatch(createUserError(error));
+    });
+};
+
+export const resetPassword = email => dispatch => {
+  dispatch(resetPasswordRequest());
+
+  let resetEmail = email;
+
+  if (!email) {
+    resetEmail = auth.currentUser.email;
+  }
+
+  const successMessage = email
+    ? 'Password Reset link sent to your mail. You will get an email if you are registered on the platform'
+    : 'Password Reset link sent to your mail';
+
+  return auth
+    .sendPasswordResetEmail(resetEmail)
+    .then(() => {
+      toastr.success(successMessage);
+      dispatch(resetPasswordSuccess());
+    })
+    .catch(error => {
+      if (email) {
+        toastr.success(successMessage);
+      } else {
+        toastr.error(error.message);
+      }
+      dispatch(resetPasswordError(error));
     });
 };

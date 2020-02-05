@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 import withImageHeader from '../hocs/withImageHeader';
 import ProfileForm from '../components/ProfileForm';
 import { firestore } from '../firebase/firebase';
@@ -46,6 +47,7 @@ const Register = ({ dispatch, history: { push } }) => {
     };
 
     dispatch(createUser(data)).then(() => {
+      toastr.success('Registration successfull');
       push('/');
       setSubmitting(false);
     });
