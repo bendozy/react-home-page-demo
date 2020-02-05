@@ -11,9 +11,6 @@ import {
   LOGOUT_USER_REQUEST,
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_ERROR,
-  CHANGE_PASSWORD_REQUEST,
-  CHANGE_PASSWORD_SUCCESS,
-  CHANGE_PASSWORD_ERROR,
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
   CREATE_USER_ERROR,
@@ -42,9 +39,8 @@ const logoutUserRequest = () => ({
   type: LOGOUT_USER_REQUEST,
 });
 
-const logoutUserSuccess = user => ({
+const logoutUserSuccess = () => ({
   type: LOGOUT_USER_SUCCESS,
-  user,
 });
 
 const logoutUserError = error => ({
@@ -63,20 +59,6 @@ const getCurrentUserSuccess = user => ({
 
 const getCurrentUserError = error => ({
   type: GET_USER_ERROR,
-  error,
-});
-
-const changePasswordRequest = () => ({
-  type: CHANGE_PASSWORD_REQUEST,
-});
-
-const changePasswordSuccess = user => ({
-  type: CHANGE_PASSWORD_SUCCESS,
-  user,
-});
-
-const changePasswordError = error => ({
-  type: CHANGE_PASSWORD_ERROR,
   error,
 });
 
@@ -151,29 +133,6 @@ export const getCurrentUser = () => (dispatch, getState) => {
   }
 };
 
-export const changePassword = ({
-  currentPassword,
-  newPassword,
-}) => dispatch => {
-  dispatch(changePasswordRequest());
-
-  return auth
-    .signInWithEmailAndPassword(currentPassword, newPassword)
-    .then(() => {
-      return auth.currentUser
-        .updatePassword(newPassword)
-        .then(() => {
-          dispatch(changePasswordSuccess());
-        })
-        .catch(error => {
-          dispatch(changePasswordError(error));
-        });
-    })
-    .catch(error => {
-      dispatch(changePasswordError(error));
-    });
-};
-
 export const createUser = ({ email, password, ...profile }) => dispatch => {
   dispatch(createUserRequest());
 
@@ -181,7 +140,7 @@ export const createUser = ({ email, password, ...profile }) => dispatch => {
     .createUserWithEmailAndPassword(email, password)
     .then(({ user: { uid } }) => {
       dispatch(createUserSuccess(getUser({ uid, email })));
-      return dispatch(createProfile({ uid, ...profile }));
+      dispatch(createProfile({ uid, ...profile }));
     })
     .catch(error => {
       dispatch(createUserError(error));
@@ -213,6 +172,7 @@ export const resetPassword = email => dispatch => {
       } else {
         toastr.error(error.message);
       }
+
       dispatch(resetPasswordError(error));
     });
 };

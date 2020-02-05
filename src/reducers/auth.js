@@ -8,9 +8,6 @@ import {
   LOGOUT_USER_REQUEST,
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_ERROR,
-  CHANGE_PASSWORD_REQUEST,
-  CHANGE_PASSWORD_SUCCESS,
-  CHANGE_PASSWORD_ERROR,
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
   CREATE_USER_ERROR,
@@ -27,7 +24,6 @@ export default (state = initialState, action) => {
     case GET_USER_REQUEST:
     case LOGIN_USER_REQUEST:
     case LOGOUT_USER_REQUEST:
-    case CHANGE_PASSWORD_REQUEST:
     case CREATE_USER_REQUEST:
       return {
         ...state,
@@ -37,7 +33,6 @@ export default (state = initialState, action) => {
     case GET_USER_SUCCESS:
     case LOGIN_USER_SUCCESS:
     case LOGOUT_USER_SUCCESS:
-    case CHANGE_PASSWORD_SUCCESS:
     case CREATE_USER_SUCCESS:
       return {
         ...state,
@@ -49,7 +44,6 @@ export default (state = initialState, action) => {
     case GET_USER_ERROR:
     case LOGIN_USER_ERROR:
     case LOGOUT_USER_ERROR:
-    case CHANGE_PASSWORD_ERROR:
     case CREATE_USER_ERROR:
       return {
         ...state,

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth action creators tests dispatches an error if there is an issue with user creation 1`] = `
+Array [
+  Object {
+    "type": "CREATE_USER_REQUEST",
+  },
+  Object {
+    "error": "error",
+    "type": "CREATE_USER_ERROR",
+  },
+]
+`;
+
+exports[`Auth action creators tests dispatches reset email action for logged in user 1`] = `
+Array [
+  Object {
+    "type": "RESET_PASSWORD_REQUEST",
+  },
+  Object {
+    "type": "RESET_PASSWORD_SUCCESS",
+  },
+]
+`;
+
+exports[`Auth action creators tests dispatches reset email action for logged out users 1`] = `
+Array [
+  Object {
+    "type": "RESET_PASSWORD_REQUEST",
+  },
+  Object {
+    "type": "RESET_PASSWORD_SUCCESS",
+  },
+]
+`;
+
+exports[`Auth action creators tests dispatches user logout error 1`] = `
+Array [
+  Object {
+    "type": "LOGOUT_USER_REQUEST",
+  },
+  Object {
+    "error": "error",
+    "type": "LOGOUT_USER_ERROR",
+  },
+]
+`;
+
+exports[`Auth action creators tests encounters a log in error 1`] = `
+Array [
+  Object {
+    "type": "LOGIN_USER_REQUEST",
+  },
+  Object {
+    "error": Object {
+      "message": "error",
+    },
+    "type": "LOGIN_USER_ERROR",
+  },
+]
+`;
+
+exports[`Auth action creators tests successfully creates a user 1`] = `
+Array [
+  Object {
+    "type": "CREATE_USER_REQUEST",
+  },
+  Object {
+    "type": "CREATE_USER_SUCCESS",
+    "user": Object {
+      "email": "test@gmail.com",
+      "uid": "1",
+    },
+  },
+  Object {
+    "type": "CREATE_PROFILE_REQUEST",
+  },
+]
+`;
+
+exports[`Auth action creators tests successfully logs in out a user 1`] = `
+Array [
+  Object {
+    "type": "LOGIN_USER_REQUEST",
+  },
+  Object {
+    "type": "LOGIN_USER_SUCCESS",
+    "user": Object {
+      "email": undefined,
+      "uid": 232,
+    },
+  },
+]
+`;
+
+exports[`Auth action creators tests successfully logs out a user 1`] = `
+Array [
+  Object {
+    "type": "LOGOUT_USER_REQUEST",
+  },
+  Object {
+    "type": "LOGOUT_USER_SUCCESS",
+  },
+]
+`;
